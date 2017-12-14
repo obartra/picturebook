@@ -1,15 +1,18 @@
 const { resolve, join } = require('path')
+const webpack = require('webpack')
 const { root, postcssConfig, webpackConfig } = require('../params')
 
 module.exports = (baseConfig, env) => {
   const picturebookPath = resolve(root, 'node_modules/picturebook')
   const jsConfig = Object.assign(baseConfig.module.rules[0], {
-    include: [
-      ...baseConfig.module.rules[0].include,
-      picturebookPath,
-    ],
+    include: [...baseConfig.module.rules[0].include, picturebookPath],
     exclude: [join(picturebookPath, '/node_modules')],
   })
+
+  const ignoreContextRegex = new RegExp(picturebookPath + '/shared/storyFolders')
+
+  baseConfig.plugins.push(new webpack.IgnorePlugin(/test/, ignoreContextRegex))
+
   baseConfig.node = {
     fs: 'empty',
   }
@@ -39,10 +42,7 @@ module.exports = (baseConfig, env) => {
     },
     {
       test: /\.css$/,
-      include: [
-        root,
-        picturebookPath,
-      ],
+      include: [root, picturebookPath],
       use: [
         'style-loader',
         {
@@ -67,7 +67,7 @@ module.exports = (baseConfig, env) => {
   ]
 
   if (webpackConfig) {
-    return require(webpackConfig)(baseConfig, env);
+    return require(webpackConfig)(baseConfig, env)
   }
 
   return baseConfig

@@ -1,19 +1,27 @@
 // @preval
 const { dirname, resolve, join } = require('path')
 const findUp = require('find-up')
-const rc = require('rc')
+const cosmiconfig = require('cosmiconfig')
 const { name } = require('./package.json')
+const seleniumPath = require('selenium-server-standalone-jar').path;
 
 const root = dirname(findUp.sync('package.json'))
 const picturebookPath = 'node_modules/picturebook/'
-const config = rc(name, {
-  projectName: 'PictureBook',
+const explorer = cosmiconfig(name, {
+  cache: false,
+  sync: true
+})
+const config = Object.assign({}, {
   entryPoint: join(picturebookPath, 'index.js'),
+  image: {},
   markdownFooter: join(picturebookPath, 'shared/storyFolders/footer.md'),
   wrapStory: join(picturebookPath, 'config/wrapStory'),
-  projectUrl: 'https://github.com/obartra/picturebook',
   picturebookPath,
+  projectName: 'PictureBook',
+  skip: [],
+  projectUrl: 'https://github.com/obartra/picturebook',
   root,
+  seleniumPath,
   browsers: {
     chrome: {
       desiredCapabilities: {
@@ -141,7 +149,8 @@ const config = rc(name, {
       },
     },
   },
-})
+}, explorer.load('.').config)
+
 ;[
   'babelConfig',
   'entryPoint',
@@ -156,5 +165,7 @@ const config = rc(name, {
     config[key] = resolve(config.root, config[key])
   }
 })
+
+config.image.desiredCapabilities = config.image.desiredCapabilities || {}
 
 module.exports = config
