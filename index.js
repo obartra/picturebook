@@ -5,7 +5,12 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import { storyFolders, WithExtensions } from './shared'
 
-const {default: wrapStory} = require(preval`module.exports=require('./params').wrapStory`)
+let wrapStory = require(preval`
+  const params = require('./params')
+  module.exports = params.wrapStory || 'lodash/identity'
+`)
+
+wrapStory = wrapStory.default || wrapStory
 
 function getDisplayName(WrappedComponent) {
   const defaultName = 'Component'

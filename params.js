@@ -15,7 +15,6 @@ const config = Object.assign({}, {
   entryPoint: join(picturebookPath, 'index.js'),
   image: {},
   markdownFooter: join(picturebookPath, 'shared/storyFolders/footer.md'),
-  wrapStory: join(picturebookPath, 'config/wrapStory'),
   picturebookPath,
   projectName: 'PictureBook',
   skip: [],
