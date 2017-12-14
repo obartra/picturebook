@@ -40,6 +40,7 @@ Configure it creating `.picturebookrc` file on your root directory. The followin
 - **entryPoint**: The stories entry point (it should import `picturebook`)
 - **markdownFooter**: The markdown footer applied to all stories. The keyword `[[url]]` is translated to the specific story url if `storiesUrl` is specified.
 - **postcssConfig**: A path to a file exporting either a plain object that returns a postcss config. This is a convenience method in case you don't need to customize other webpack settings. If you want full control on how css is loaded, you can do so by modifying the `webpackConfig` parameter. It expects the same format than storybook (a function that will receive the default config as first parameter and the environment as the second one)
+- **wrapStory**: Path to an ES module that default exports a function that takes a story, and returns a wrapped version of that story. Useful for applying context providers that stories may depend on, or otherwise augmenting each story.
 
 ## ✏️ Usage
 

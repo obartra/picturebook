@@ -10,6 +10,7 @@ const config = rc(name, {
   projectName: 'PictureBook',
   entryPoint: join(picturebookPath, 'index.js'),
   markdownFooter: join(picturebookPath, 'shared/storyFolders/footer.md'),
+  wrapStory: join(picturebookPath, 'config/wrapStory'),
   projectUrl: 'https://github.com/obartra/picturebook',
   picturebookPath,
   root,
@@ -148,6 +149,7 @@ const config = rc(name, {
   'picturebookPath',
   'postcssConfig',
   'storyPath',
+  'wrapStory',
   'webpackConfig',
 ].forEach(key => {
   if (key in config) {
