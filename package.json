@@ -31,7 +31,7 @@
     "identity-obj-proxy": "3.0.0",
     "kcd-scripts": "^0.36.0",
     "lodash": "4.17.5",
-    "nightwatch": "0.9.20",
+    "nightwatch": "1.0.4",
     "node-resemble-js": "0.2.0",
     "saucelabs": "1.4.0",
     "selenium-server-standalone-jar": "3.9.1",
